@@ -1,20 +1,17 @@
 <template>
-
   <div class="container-login">
-    <! -- Botão de Voltar -->
+    <!-- Botão de Voltar -->
     <div style="position: absolute; top: 20px; left: 20px;">
       <button class="btn btn-outline" @click="$router.push('/')">
         ← Voltar
       </button>
     </div>
 
-
     <div class="form-box">
       <h1 class="titulo">Sistema de EPI</h1>
       <p class="subtitulo">Faça login para acessar o sistema</p>
 
       <form @submit.prevent="fazerLogin" class="formulario">
-
         <div class="form-group">
           <label for="email" class="label">E-mail</label>
           <input
@@ -49,9 +46,7 @@
           class="botao-entrar"
           :disabled="carregando"
         >
-
           <i v-if="carregando" class="fas fa-spinner fa-spin"></i>
-
           <span v-else>Entrar</span>
         </button>
       </form>
@@ -64,76 +59,53 @@
 </template>
 
 <script setup>
-
 import { ref } from 'vue'
 import { useSupabase } from '../composables/useSupabase'
 import { useRouter } from 'vue-router'
 
+// Importando a imagem de acessórios de forma correta para o Vite ler no CSS dinâmico
+import acessoriosImg from '../assets/acessorios.png'
 
 const { supabase } = useSupabase()
-
-
 const router = useRouter()
 
-
 const email = ref('')
-
 const senha = ref('')
-
 const erro = ref('')
-
 const carregando = ref(false)
 
 async function fazerLogin() {
-
   erro.value = ''
 
-
   if (!email.value || !senha.value) {
-
     erro.value = 'Por favor, preencha todos os campos'
-
     return
-
   }
 
   carregando.value = true
-
   try {
-
     const { error } = await supabase.auth.signInWithPassword({
-
       email: email.value,
-
       password: senha.value
     })
 
     if (error) {
-
       erro.value = 'E-mail ou senha incorretos. Tente novamente.'
-
       carregando.value = false
-
+      return // Adicionado para parar a execução caso dê erro
     }
 
-
-       router.push('/funcionarios')
-
+    router.push('/funcionarios')
   }
-
   catch (err) {
-
     erro.value = 'Erro ao fazer login. Tente novamente mais tarde.'
-
     console.error('Erro ao fazer login:', err)
-
     carregando.value = false
   }
 }
 </script>
 
 <style scoped>
-
 * {
   margin: 0;
   padding: 0;
@@ -143,7 +115,6 @@ async function fazerLogin() {
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
-
 
 .container-login {
   display: flex;
@@ -194,7 +165,6 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-
 .titulo {
   font-size: 32px;
   color: #000000;
@@ -203,7 +173,6 @@ body {
   text-align: center;
 }
 
-
 .subtitulo {
   font-size: 16px;
   color: #1A1A1A;
@@ -211,13 +180,11 @@ body {
   margin-bottom: 40px;
 }
 
-
 .formulario {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-
 
 .form-group {
   display: flex;
@@ -225,13 +192,11 @@ body {
   gap: 8px;
 }
 
-
 .label {
   font-size: 14px;
   font-weight: 600;
   color: #e00505;
 }
-
 
 .input {
   padding: 12px 16px;
@@ -242,7 +207,6 @@ body {
   background-color: #FFFFFF;
   transition: all 0.3s ease;
 }
-
 
 .input:focus {
   outline: none;
@@ -265,7 +229,6 @@ body {
 .mensagem-erro i {
   font-size: 18px;
 }
-
 
 .botao-entrar {
   padding: 12px 24px;
@@ -314,14 +277,12 @@ body {
     font-size: 14px;
   }
 }
-</style>
 
-<style scoped>
+/* Unifiquei a classe auth-page aqui dentro e aplicando a variável reativa criada no script */
 .auth-page {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-image: url('@/assets/acessorios.png');
-
+  background-image: v-bind("`url(${acessoriosImg})`");
 }
 </style>

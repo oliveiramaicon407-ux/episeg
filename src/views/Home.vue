@@ -4,57 +4,50 @@
     
     <main class="home">
       <section class="home__hero">
-<div class="home__hero-imagem">
-  <h1>EPI</h1>
-  <p>Segurança Em Primeiro Lugar</p>
-  <a href="/Cadastro" class="button-Dashboard">Acessar Painel</a>
-</div>
+        <div class="home__hero-imagem">
+          <h1>EPI</h1>
+          <p>Segurança Em Primeiro Lugar</p>
+          <a href="/Cadastro" class="button-Dashboard">Acessar Painel</a>
+        </div>
       </section>
 
-       <section class="home__instrucoes">
-           <img
-            src="../assets/trabalhadores.png"
-            alt="Ilustração de gestão de EPI"
-            class="home__hero-img"
-          />
-
-           <img
-            src="../assets/epis.png"
-            alt="Ilustração de gestão de EPI"
-            class="home__hero-img"
-          />
-
-          <h2>Funcionalidades</h2>
-  <p>Sobre EPI's e entrega de equipamentos de proteção individual, e garantindo a segurança dos trabalhadores. </p>
-      </section>
-      
-
-<section class="home__cards">
-
-  
-       <img
-            src="../assets/seguranca.png"
-            alt="Ilustração de gestão de EPI"
-            class="home__hero-img"
-          />
+      <section class="home__instrucoes">
+        <!-- Trocado o src fixo pelas variáveis importadas no script -->
+        <img
+          :src="trabalhadoresImg"
+          alt="Ilustração de gestão de EPI"
+          class="home__hero-img"
+        />
 
         <img
-            src="../assets/acessorios.png"
-            alt="Ilustração de gestão de EPI"
-            class="home__hero-img"
-          />
+          :src="episImg"
+          alt="Ilustração de gestão de EPI"
+          class="home__hero-img"
+        />
+
+        <h2>Funcionalidades</h2>
+        <p>Sobre EPI's e entrega de equipamentos de proteção individual, e garantindo a segurança dos trabalhadores. </p>
+      </section>
+      
+      <section class="home__cards">
+        <img
+          :src="segurancaImg"
+          alt="Ilustração de gestão de EPI"
+          class="home__hero-img"
+        />
 
         <img
-            src="../assets/estastiscas.png"
-            alt="Ilustração de gestão de EPI"
-            class="home__hero-img"
-            
-          />
+          :src="acessoriosImg"
+          alt="Ilustração de gestão de EPI"
+          class="home__hero-img"
+        />
 
-      
+        <img
+          :src="estatisticasImg"
+          alt="Ilustração de gestão de EPI"
+          class="home__hero-img"
+        />
       </section>
-
-
     </main>
 
     <Footer />
@@ -65,11 +58,28 @@
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 
+// Importando as imagens como módulos para o Vite não se perder no build
+import trabalhadoresImg from '../assets/trabalhadores.png'
+import episImg from '../assets/epis.png'
+import segurancaImg from '../assets/seguranca.png'
+import acessoriosImg from '../assets/acessorios.png'
+import estatisticasImg from '../assets/estastiscas.png'
+
 export default {
   name: 'Home',
   components: {
     Header,
     Footer
+  },
+  data() {
+    return {
+      // Disponibilizando as imagens para o template
+      trabalhadoresImg,
+      episImg,
+      segurancaImg,
+      acessoriosImg,
+      estatisticasImg
+    }
   }
 }
 </script>
@@ -117,9 +127,12 @@ export default {
   flex-shrink: 0;
 }
 
-.home__hero-imagem h1 , p{
+/* Corrigido o agrupamento de seletores que causava erro no Scoped CSS do Vite */
+.home__hero-imagem h1, 
+.home__hero-imagem p {
   color: #ffffff;
 }
+
 .home__hero-img {
   width: 320px;
   max-width: 100%;
@@ -245,21 +258,21 @@ export default {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza horizontalmente */
+  align-items: center; 
   justify-content: center;
-  text-align: center; /* Centraliza o texto do h1 e p */
+  text-align: center; 
 }
 
 .button-Dashboard {
   display: inline-block;
   margin-top: 1.5rem;
-  padding: 1rem 3rem;      /* Aumenta o tamanho interno do botão */
-  font-size: 1.5rem;       /* Aumenta o texto */
+  padding: 1rem 3rem;      
+  font-size: 1.5rem;       
   font-weight: bold;
   color: #ffffff;
-  background-color: #ea0c0c; /* Cor laranja que você usou nos passos */
+  background-color: #ea0c0c; 
   border-radius: 8px;
-  text-decoration: none;   /* Remove o sublinhado do link */
+  text-decoration: none;   
   transition: transform 0.2s, background-color 0.2s;
   border: none;
   cursor: pointer;
@@ -268,7 +281,6 @@ export default {
 /* Efeito ao passar o mouse */
 .button-Dashboard:hover {
   background-color: #ff6b1a;
-  transform: scale(1.05); /* Dá um leve zoom ao passar o mouse */
+  transform: scale(1.05); 
 }
-
 </style>

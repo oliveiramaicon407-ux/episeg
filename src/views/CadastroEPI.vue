@@ -82,12 +82,9 @@ const { supabase } = useSupabase();
 const epis = ref([]);
 const editandoId = ref(null);
 
-// AJUSTADO: Propriedade inicializada como 'equipamentos'
 const form = reactive({ equipamentos: '', ca: '', descricao: '', quantidade: '' });
 
-// Busca os EPIs no banco
 const carregar = async () => {
-  // AJUSTADO: .order('equipamentos') agora busca o nome real da coluna
   const { data, error } = await supabase.from('epis').select('*').order('equipamentos', { ascending: true });
   if (error) console.error("Erro ao carregar:", error.message);
   epis.value = data || [];
@@ -103,7 +100,6 @@ const cancelarEdicao = () => {
 
 const prepararEdicao = (epi) => {
   editandoId.value = epi.id;
-  // AJUSTADO: Coleta 'equipamentos' vindo do banco
   form.equipamentos = epi.equipamentos ?? '';
   form.ca = epi.ca ?? '';
   form.descricao = epi.descricao ?? '';
@@ -122,10 +118,9 @@ const excluir = async (id) => {
   carregar();
 };
 
-// Salva ou Atualiza
 const salvar = async () => {
   const dadosParaEnviar = {
-    equipamentos: form.equipamentos, // AJUSTADO
+    equipamentos: form.equipamentos,
     ca: form.ca,
     descricao: form.descricao,
     quantidade: Number(form.quantidade)
@@ -149,18 +144,17 @@ const salvar = async () => {
 
     cancelarEdicao();
     carregar();
-} catch (error) {
-  // Mude de error.message para o objeto error completo:
-  console.error("Erro completo do Supabase:", error); 
-  alert("Erro ao salvar: " + (error.message || error.details));
-}
+  } catch (error) {
+    console.error("Erro completo do Supabase:", error); 
+    alert("Erro ao salvar: " + (error.message || error.details));
+  }
 };
 
 onMounted(carregar);
 </script>
 
 <style scoped>
-/* Aproveitando o estilo anterior para manter o padrão */
+/* ───── Layout e Containers ───── */
 .layout-container { max-width: 1000px; margin: 0 auto; padding: 30px; background-color: #f8fafc; min-height: 100vh; font-family: sans-serif; }
 .header-section { margin-bottom: 25px; }
 .card-form, .card-table { background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; }
@@ -170,44 +164,48 @@ onMounted(carregar);
 .form-group { display: flex; flex-direction: column; gap: 5px; }
 label { font-size: 0.8rem; font-weight: 700; color: #475569; }
 input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
+
+/* ───── Botões Principais ───── */
 .btn { padding: 10px 20px; border-radius: 6px; cursor: pointer; border: none; font-weight: bold; }
 .btn-primary { background: #2563eb; color: white; }
 .btn-primary:hover { background-color: #1d4ed8; transform: scale(1.05); }
 .btn-outline { background: white; color: #64748b; border: 1px solid #cbd5e1; }
+
+/* ───── Tabela Estilizada (Corrigido para o Escopo do Vite) ───── */
 .styled-table { width: 100%; border-collapse: collapse; }
-.styled-table th { background: #f8fafc; padding: 12px 20px; text-align: left; font-size: 0.75rem; color: #64748b; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
-.styled-table td { padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+table.styled-table th { background: #f8fafc; padding: 12px 20px; text-align: left; font-size: 0.75rem; color: #64748b; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
+table.styled-table td { padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
 .badge-ca { background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 6px; font-weight: bold; }
-.edit { color: #149c07; cursor: pointer; background: none; border: none; font-weight: bold; margin-right: 10px; }
+.text-bold { font-weight: bold; }
+
+/* ───── Botões de Ação da Tabela ───── */
 .edit {
   display: inline-block;
   margin-top: 0.2rem;
-  padding: 0.2rem 0.2rem;      /* Aumenta o tamanho interno do botão */
-  font-size: 0.875rem;       /* Aumenta o texto */
+  padding: 0.4rem 0.8rem;      
+  font-size: 0.875rem;       
   font-weight: bold;
   color: #ffffff;
-  background-color: #149c07; /* Cor laranja que você usou nos passos */
+  background-color: #149c07; 
   border-radius: 8px;
-  text-decoration: none;   /* Remove o sublinhado do link */
+  text-decoration: none;   
   transition: transform 0.2s, background-color 0.2s;
   border: none;
   cursor: pointer;
+  margin-right: 10px;
 }
-
-/* Efeito ao passar o mouse */
 .edit:hover {
   background-color: #0d6d00;
-  transform: scale(1.05); /* Dá um leve zoom ao passar o mouse */
+  transform: scale(1.05); 
 }
 
-.delete { color: #be123c; cursor: pointer; background: none; border: none; font-weight: bold; }
 .delete {
   display: inline-block;
   margin-top: 0.2rem;
-  padding: 0.2rem 0.2rem;
+  padding: 0.4rem 0.8rem;
   font-size: 0.875rem;
   font-weight: bold;
-  color:#ffffff;
+  color: #ffffff;
   background-color: #be123c;
   border-radius: 8px;
   text-decoration: none;
@@ -215,7 +213,6 @@ input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
   border: none;
   cursor: pointer;
 }
-
 .delete:hover {
   background-color: #b60000;
   transform: scale(1.05);

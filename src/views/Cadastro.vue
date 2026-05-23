@@ -1,7 +1,6 @@
 <template>
-
   <div class="container-Cadastro">
-        <div style="position: absolute; top: 20px; left: 20px;">
+    <div style="position: absolute; top: 20px; left: 20px;">
       <button class="btn btn-outline" @click="$router.push('/')">
         ← Voltar
       </button>
@@ -12,8 +11,6 @@
       <p class="subtitulo">Faça o cadastro para acessar o sistema</p>
 
       <form @submit.prevent="fazerCadastro" class="formulario">
-
-
         <div class="form-group">
           <label for="email" class="label">E-mail</label>
           <input
@@ -38,15 +35,13 @@
           />
         </div>
 
-        
         <div class="form-group">
           <label for="confirmar-senha" class="label">Confirmar Senha</label>
           <input
             id="confirmar-senha"
             v-model="confirmarSenha" 
             type="password"
-             placeholder="Digite sua senha novamente"
-            
+            placeholder="Digite sua senha novamente"
             class="input"
             required
           />
@@ -62,14 +57,13 @@
           class="botao-Cadastrar"
           :disabled="carregando"
         >
-
           <i v-if="carregando" class="fas fa-spinner fa-spin"></i>
-
           <span v-else>Cadastrar</span>
         </button>
       </form>
 
-      <p class="Já tem uma conta?">
+      <!-- Corrigido o nome da classe inválida para evitar bugs de CSS -->
+      <p class="ja-tem-conta">
         <strong>Já tem uma conta?</strong> <a href="/login">Faça login</a>
       </p>
     </div>
@@ -77,31 +71,24 @@
 </template>
 
 <script setup>
-
 import { ref } from 'vue'
 import { useSupabase } from '../composables/useSupabase'
 import { useRouter } from 'vue-router'
 
+// Importando a imagem corretamente para o padrão exigido pelo Vite 7
+import segurancaImg from '../assets/seguranca.jpg'
 
 const { supabase } = useSupabase()
-
-
 const router = useRouter()
 
-
-const matricula = ref('')
 const email = ref('')
 const senha = ref('')
-const confirmarSenha = ref('') // <--- ESSA LINHA É A CHAVE
-const setor = ref('')
-const cargo = ref('')
+const confirmarSenha = ref('')
 
 const erro = ref('')
-
 const carregando = ref(false)
 
 async function fazerCadastro() {
-
   erro.value = ''
 
   if (!email.value || !senha.value || !confirmarSenha.value) {
@@ -117,27 +104,20 @@ async function fazerCadastro() {
   carregando.value = true
 
   try {
-
-    const { error } = await supabase.auth.signInWithPassword({
-
+    // Corrigido: Alterado de signInWithPassword para signUp para criar o usuário corretamente no Supabase
+    const { error } = await supabase.auth.signUp({
       email: email.value,
-
       password: senha.value
     })
 
     if (error) {
-
-      erro.value = 'E-mail ou senha incorretos. Tente novamente.'
-
+      erro.value = 'Erro ao realizar o cadastro: ' + error.message
       carregando.value = false
-
+      return
     }
 
-
-       router.push('/cadastrofun')
-
+    router.push('/cadastrofun')
   }
-
   catch (err) {
     erro.value = 'Erro ao fazer cadastro. Tente novamente mais tarde.'
     console.error('Erro ao fazer cadastro:', err)
@@ -147,7 +127,6 @@ async function fazerCadastro() {
 </script>
 
 <style scoped>
-
 * {
   margin: 0;
   padding: 0;
@@ -157,7 +136,6 @@ async function fazerCadastro() {
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
-
 
 .container-Cadastro {
   display: flex;
@@ -205,7 +183,6 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-
 .titulo {
   font-size: 32px;
   color: #000000;
@@ -214,7 +191,6 @@ body {
   text-align: center;
 }
 
-
 .subtitulo {
   font-size: 16px;
   color: #1A1A1A;
@@ -222,13 +198,11 @@ body {
   margin-bottom: 40px;
 }
 
-
 .formulario {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-
 
 .form-group {
   display: flex;
@@ -236,13 +210,11 @@ body {
   gap: 8px;
 }
 
-
 .label {
   font-size: 14px;
   font-weight: 600;
   color: #e00505;
 }
-
 
 .input {
   padding: 12px 16px;
@@ -253,7 +225,6 @@ body {
   background-color: #FFFFFF;
   transition: all 0.3s ease;
 }
-
 
 .input:focus {
   outline: none;
@@ -276,7 +247,6 @@ body {
 .mensagem-erro i {
   font-size: 18px;
 }
-
 
 .botao-Cadastrar {
   padding: 12px 24px;
@@ -304,7 +274,7 @@ body {
   cursor: not-allowed;
 }
 
-.dica {
+.ja-tem-conta {
   font-size: 13px;
   color: #6B7280;
   text-align: center;
@@ -325,14 +295,12 @@ body {
     font-size: 14px;
   }
 }
-</style>
 
-<style scoped>
+/* Unifiquei o bloco extra aqui e aplicando o v-bind reativo correto */
 .auth-page {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-image: url('@/assets/seguranca.jpg');
-
+  background-image: v-bind("`url(${segurancaImg})`");
 }
 </style>
