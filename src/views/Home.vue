@@ -48,7 +48,7 @@
             <img :src="estatisticasImg" alt="Controle" @error="imagemQuebrada" />
           </div>
           <h3>Controle de equipamentos</h3>
-          <p>Controle de custo com EPIs através de relatórios que geram informações detalhadas dos gráficos e durabilidade.</p>
+          <p>Controle de Funcionários e EPI com acesso a informações detalhadas.</p>
         </div>
 
       </section>
