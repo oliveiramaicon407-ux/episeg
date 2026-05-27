@@ -64,7 +64,7 @@ import Footer from '../components/Footer.vue'
 
 // Importações oficiais das imagens. 
 // ATENÇÃO: Verifique se os nomes na sua pasta 'src/assets' estão idênticos a estes abaixo!
-import trabalhadoresImg from '../assets/Trabalhadores.png'
+import trabalhadoresImg from '../assets/trabalhadores.png'
 import episImg from '../assets/epis.png'
 import segurancaImg from '../assets/seguranca.png'
 import acessoriosImg from '../assets/acessorios.png'
