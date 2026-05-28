@@ -63,9 +63,10 @@
       </form>
 
       <!-- Corrigido o nome da classe inválida para evitar bugs de CSS -->
-      <p class="ja-tem-conta">
-        <strong>Já tem uma conta?</strong> <a href="/login">Faça login</a>
-      </p>
+<p class="ja-tem-conta">
+  <strong>Já tem uma conta?</strong> 
+  <router-link to="/login">Faça login</router-link>
+</p>
     </div>
   </div>
 </template>
