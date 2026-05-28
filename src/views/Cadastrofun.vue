@@ -219,8 +219,11 @@ input:focus {
   background-color: #1d4ed8;
   transform: scale(1.05);
 }
-.btn-outline { background: white; color: #64748b; border: 1px solid #cbd5e1; }
-
+.btn-outline { background: rgb(159, 0, 0); color: #ffffff; border: 1px solid #cbd5e1; }
+.btn-outline:hover {
+  background-color: #db0000;
+  transform: scale(1.05);
+}
 /* Tabela Profissional */
 .styled-table { width: 100%; border-collapse: collapse; }
 .styled-table th {

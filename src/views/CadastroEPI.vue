@@ -169,8 +169,11 @@ input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
 .btn { padding: 10px 20px; border-radius: 6px; cursor: pointer; border: none; font-weight: bold; }
 .btn-primary { background: #2563eb; color: white; }
 .btn-primary:hover { background-color: #1d4ed8; transform: scale(1.05); }
-.btn-outline { background: white; color: #64748b; border: 1px solid #cbd5e1; }
-
+.btn-outline { background: rgb(159, 0, 0); color: #ffffff; border: 1px solid #cbd5e1; }
+.btn-outline:hover {
+  background-color: #db0000;
+  transform: scale(1.05);
+}
 /* ───── Tabela Estilizada (Corrigido para o Escopo do Vite) ───── */
 .styled-table { width: 100%; border-collapse: collapse; }
 table.styled-table th { background: #f8fafc; padding: 12px 20px; text-align: left; font-size: 0.75rem; color: #64748b; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
