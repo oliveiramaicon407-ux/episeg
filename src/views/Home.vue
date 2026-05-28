@@ -7,7 +7,7 @@
         <div class="home__hero-imagem">
           <h1>EPI</h1>
           <p>Segurança Em Primeiro Lugar</p>
-          <a href="/Cadastro" class="button-Dashboard">Acessar Painel</a>
+          <router-link to="/cadastro" class="button-Dashboard">Acessar Painel</router-link>
         </div>
       </section>
 
