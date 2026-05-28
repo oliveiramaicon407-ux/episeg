@@ -13,16 +13,16 @@ const routes = [
     path: '/',
     component: Home
   },
+
   {
-    path: '/cadastro',
-    component: Cadastro
-  },
+    path: '/cadastro', component: Cadastro},
   {
     path: '/login',
     component: Login
   },
+
   {
-    path: '/dashboard',
+    path: '/',
     component: Dashboard,
     meta: { requiresAuth: true },
     children: [
