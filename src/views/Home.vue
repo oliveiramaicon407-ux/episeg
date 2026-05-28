@@ -122,6 +122,7 @@ export default {
   height: 40rem;
 }
 
+
 .home__hero-imagem {
   flex-shrink: 0;
   display: flex;
