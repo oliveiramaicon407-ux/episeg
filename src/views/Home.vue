@@ -68,7 +68,7 @@ import trabalhadoresImg from '../assets/trabalhadores.png'
 import episImg from '../assets/epis.png'
 import segurancaImg from '../assets/seguranca.png'
 import acessoriosImg from '../assets/acessorios.png'
-import estatisticasImg from '../assets/estastiscas.png' // mantido o nome anterior por segurança
+import estatisticasImg from '../assets/estatisticas.png' // mantido o nome anterior por segurança
 
 export default {
   name: 'Home',
@@ -121,7 +121,6 @@ export default {
   width: 100%;
   height: 40rem;
 }
-
 
 .home__hero-imagem {
   flex-shrink: 0;
